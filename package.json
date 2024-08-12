@@ -1,0 +1,27 @@
+{
+  "name": "codegen-mappers-loader",
+  "description": "A TypeScript utility for loading and mapping code generation mappers from TypeScript files.",
+  "version": "1.0.0",
+  "main": "./dist/index.js",
+  "types": "index.d.ts",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ifeanyi-ugwu/codegen-mappers-loader.git"
+  },
+  "author": "ifeanyi ugwu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ifeanyi-ugwu/codegen-mappers-loader/issues"
+  },
+  "homepage": "https://github.com/ifeanyi-ugwu/codegen-mappers-loader#readme",
+  "devDependencies": {
+    "@types/node": "^22.2.0",
+    "typescript": "^5.5.4"
+  }
+}
