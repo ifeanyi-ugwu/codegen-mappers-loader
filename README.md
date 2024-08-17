@@ -1,10 +1,6 @@
 # Codegen Mapper Loader
 
-A TypeScript utility for loading and mapping code generation mappers from TypeScript files.
-
-## Overview
-
-This script scans a directory for TypeScript files that match the `.mappers.ts` pattern. It extracts and maps interfaces, type aliases, and class declarations with names ending in `Mapper` for use in code generation.
+A TypeScript utility that creates mappings between GraphQL types and TypeScript implementations for GraphQL Code Generator.
 
 ## Installation
 
@@ -38,15 +34,25 @@ const config: CodegenConfig = {
 export default config;
 ```
 
-In your .mappers.ts files:
-Create files with the .mappers.ts extension and export your mappers:
+### In your .mappers.ts files
+
+Create files with `.mappers.ts` extension and export your mappers:
 
 ```typescript
 // user.mappers.ts
 export { IUserDocument as UserMapper } from "./models";
 ```
 
-This exports IUserDocument under the name UserMapper, which matches the pattern the loadMappers function is looking for.
+This exports IUserDocument under the name UserMapper. The loadMappers function will create a mapping between User and UserMapper.
+
+## How It Works
+
+The loadMappers function scans the specified directory(current working directory by default) for `.mappers.ts` files. It looks for:
+
+1. Interfaces, type aliases, or class declarations with names ending in Mapper.
+2. Named exports with names ending in Mapper.
+
+For each found mapper, it creates an entry in the mappers object. The key is the name without the Mapper suffix, and the value is the path to the file and the exported name. This generated mapper object can be directly used in your GraphQL Code Generator configuration.
 
 ## Options
 
