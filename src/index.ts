@@ -2,13 +2,12 @@ import * as fs from "fs";
 import * as path from "path";
 import ts from "typescript";
 
-const mapperFilesPattern = /\.mappers\.ts$/;
-const mapperSuffixPattern = /Mapper$/;
-
 interface LoadMappersOptions {
   currentDir?: string;
   ignoreList?: string[];
   removeExtension?: boolean;
+  mapperFilesPattern?: RegExp;
+  mapperSuffixPattern?: RegExp;
 }
 
 interface Mappers {
@@ -19,13 +18,21 @@ const defaultOptions: Required<LoadMappersOptions> = {
   currentDir: process.cwd(),
   ignoreList: [".git", ".vscode", "node_modules"],
   removeExtension: true,
+  mapperFilesPattern: /\.mappers\.ts$/,
+  mapperSuffixPattern: /Mapper$/,
 };
 
 export function loadMappers(
   outputDir: string,
   options?: LoadMappersOptions
 ): Mappers {
-  const { currentDir, ignoreList, removeExtension } = {
+  const {
+    currentDir,
+    ignoreList,
+    removeExtension,
+    mapperFilesPattern,
+    mapperSuffixPattern,
+  } = {
     ...defaultOptions,
     ...options,
   };
@@ -54,6 +61,8 @@ export function loadMappers(
           currentDir: filePath,
           ignoreList,
           removeExtension,
+          mapperFilesPattern,
+          mapperSuffixPattern,
         }),
       };
     } else if (stats.isFile() && mapperFilesPattern.test(file)) {
